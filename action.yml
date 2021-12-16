@@ -1,6 +1,13 @@
 name: "Push After Run"
 description: "Push changes after a step run"
 inputs:
+  message:
+    description: "Commit message"
+    required: true
+  secondary_message:
+    description: "Secondary Commit message"
+    required: false
+    default: ""
   head:
     description: "The branch to push to"
     required: false
@@ -12,4 +19,4 @@ inputs:
 runs:
   using: "node12"
   main: "index.js"
-  post: "push.js
+  post: "push.js"
