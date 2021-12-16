@@ -1,0 +1,15 @@
+name: "Push After Run"
+description: "Push changes after a step run"
+inputs:
+  head:
+    description: "The branch to push to"
+    required: false
+    default: "HEAD"
+  token:
+    description: "The token to use for pushing"
+    required: false
+    default: ""
+runs:
+  using: "node12"
+  main: "index.js"
+  post: "push.js

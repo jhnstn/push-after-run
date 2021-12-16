@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/jhnstn/push-after-run/issues"
   },
-  "homepage": "https://github.com/jhnstn/push-after-run#readme"
+  "homepage": "https://github.com/jhnstn/push-after-run#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "simple-git": "^2.48.0"
+  }
 }
