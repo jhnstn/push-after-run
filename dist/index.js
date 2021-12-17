@@ -9074,10 +9074,11 @@ const simpleGit = __nccwpck_require__(3275);
 const git = simpleGit();
 
 async function run() {
-  const command = core.getInput("run_command");
-  console.log("run command: ", command.split(/[\r\n]+/));
+  const commands = core.getInput("run");
 
-  await exec.exec(command);
+  commands.split(/[\r\n]+/).forEach(async (cmd) => {
+    await exec.exec(cmd);
+  });
 }
 
 try {
