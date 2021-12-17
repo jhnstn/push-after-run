@@ -19,14 +19,14 @@ version=$(jq -r '.version' package.json)
 
 git diff --exit-code --quiet && echo "No changes detected" || (
   IFS='.' read -r -a version_array <<< "$version"
-  if [[minor_version -eq "true"]]; then
+  if [[$minor_version -eq "true"]]; then
     version_array[1]=$((version_array[1] + 1))
   else
     version_array[0]=$((version_array[0] + 1))
   fi
   version="${version_array[0]}.${version_array[1]}"
 
-  package_json="$(jq '.version = "$version.0"' package.json)" && echo "${package_json}" > package.json
+  package_json=$(jq '.version = "${version}.0"' package.json) && echo "${package_json}" > package.json
 
   ncc build index.js --license licenses.txt
   git commit -am "Release v$version"
