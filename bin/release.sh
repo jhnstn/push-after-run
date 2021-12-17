@@ -27,7 +27,7 @@ IFS='.' read -r -a version_array <<< "$version"
 #fi
 version="${version_array[0]}.${version_array[1]}"
 
-package_json=$(jq '.version = "${version}.0"' package.json) && echo "${package_json}" > package.json
+package_json=$(jq --arg v "$version.0" '.version = $v' package.json) && echo "${package_json}" > package.json
 
 ncc build index.js --license licenses.txt
 git commit -am "Release v$version"
