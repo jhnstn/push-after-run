@@ -9075,7 +9075,8 @@ const git = simpleGit();
 
 async function run() {
   const command = core.getInput("run_command");
-  console.log("run command: ", command);
+  console.log("run command: ", command.split(/[\r\n]+/));
+
   await exec.exec(command);
 }
 
