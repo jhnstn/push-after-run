@@ -8,7 +8,7 @@ inputs:
     description: "Secondary Commit message"
     required: false
     default: ""
-  run_command:
+  run:
     description: "Command to run"
     required: false
     default: ":"
