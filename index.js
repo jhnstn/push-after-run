@@ -4,9 +4,14 @@ const simpleGit = require("simple-git");
 
 const git = simpleGit();
 
-const command = core.getInput("run_command");
-console.log("run command: ", command);
+async function run() {
+  const command = core.getInput("run_command");
+  console.log("run command: ", command);
+  await exec.exec(command);
+}
 
-exec.exec(command);
-
-await exec.exec(command);
+try {
+  run();
+} catch (error) {
+  core.setFailed(error.message);
+}
