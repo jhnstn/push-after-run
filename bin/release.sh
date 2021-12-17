@@ -17,7 +17,7 @@ done
 
 version=$(jq -r '.version' package.json)
 
-git diff --exit-code || echo -e "\nThere are uncommitted changes. Commit changes before creating a release" && exit 0
+git diff --exit-code || ( echo -e "\nThere are uncommitted changes. Commit changes before creating a release" && exit 0 )
 
 IFS='.' read -r -a version_array <<< "$version"
 if [[ $minor_version -eq "true" ]]; then
