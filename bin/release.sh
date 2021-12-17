@@ -17,20 +17,20 @@ done
 
 version=$(jq -r '.version' package.json)
 
-git diff --exit-code --quiet && echo "No changes detected" || (
-  IFS='.' read -r -a version_array <<< "$version"
-  if [[$minor_version -eq "true"]]; then
-    version_array[1]=$((version_array[1] + 1))
-  else
-    version_array[0]=$((version_array[0] + 1))
-  fi
-  version="${version_array[0]}.${version_array[1]}"
+git diff --exit-code || echo -e "\nThere are uncommitted changes. Commit changes before creating a release" && exit 0
 
-  package_json=$(jq '.version = "${version}.0"' package.json) && echo "${package_json}" > package.json
+IFS='.' read -r -a version_array <<< "$version"
+if [[ $minor_version -eq "true" ]]; then
+  version_array[1]=$((version_array[1] + 1))
+else
+  version_array[0]=$((version_array[0] + 1))
+fi
+version="${version_array[0]}.${version_array[1]}"
 
-  ncc build index.js --license licenses.txt
-  git commit -am "Release v$version"
+package_json=$(jq '.version = "${version}.0"' package.json) && echo "${package_json}" > package.json
 
-  git tag -a v$version -m "Release v$version"
-  git push --follow-tags
-)
+ncc build index.js --license licenses.txt
+git commit -am "Release v$version"
+
+git tag -a v$version -m "Release v$version"
+git push --follow-tags
