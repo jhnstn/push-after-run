@@ -4,6 +4,13 @@ set -euo pipefail
 REMOTE=${INPUT_REMOTE:-"origin"}
 HEAD="HEAD"
 GITHUB_TOKEN=${INPUT_TOKEN}
+DEBUG="true"
+
+_debug() {
+  if [ "${DEBUG}" = "true" ]; then
+    echo "::debug::$@"
+  fi
+}
 
 # Switch to ref if provided
 if [ -n "${INPUT_REF:-}" ]; then
@@ -29,9 +36,11 @@ fi
 if [[ -n "${INPUT_USER_EMAIL:-}" ]]; then
   git config user.email "${INPUT_USER_EMAIL}"
 fi
+git status
 
 if [ -z "$(git status --porcelain)" ]; then
-  exit "${INPUT_NO_CHANGES_EXIT_CODE:-0}"
+  _debug "No changes detected, skipping commit"
+  exit "${INPUT_NO_CHANGES_EXIT_CODE:-1}"
 fi
 
 git add .
