@@ -1,12 +1,8 @@
-#!/bin/sh -l
+#!/bin/bash
 set -euo pipefail
 
 REMOTE=${INPUT_REMOTE:-"origin"}
 HEAD="HEAD"
-GITHUB_TOKEN=${INPUT_TOKEN:-"$GITHUB_TOKEN"}
-
-echo "woohooo"
-exit 0
 
 # Switch to ref if provided
 if [ -n "${INPUT_REF:-}" ]; then
@@ -37,5 +33,11 @@ if [ -z "$(git status --porcelain)" ]; then
   exit "${INPUT_NO_CHANGES_EXIT_CODE:-0}"
 fi
 
-git add . && git commit -m "${INPUT_MESSAGE}" -m "${INPUT_MESSAGE_DETAIL}"
+git add .
+git -c user.name="${INPUT_USER_NAME}" -c user.email="${INPUT_USER_EMAIL}" \
+commit \
+-m "${INPUT_MESSAGE}" \
+-m "${INPUT_MESSAGE_DETAIL}" \
+--author "${INPUT_AUTHOR}" \
+
 git push "${REMOTE}" "${HEAD}"

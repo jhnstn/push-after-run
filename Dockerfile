@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # install required packages for our script
-# RUN apk add --no-cache git
+RUN apk add --no-cache git bash
 
 # Copies your code file  repository to the filesystem
 COPY entrypoint.sh /entrypoint.sh

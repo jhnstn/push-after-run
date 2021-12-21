@@ -20,6 +20,20 @@ inputs:
     description: "The token to use for pushing"
     required: false
     default: ""
+  user_name:
+    description: "The user name to use for pushing"
+    required: false
+    default: "Github Actions"
+  user_email:
+    description: "The user email to use for pushing"
+    required: false
+    default: "actions@github.com"
+  author:
+    description: "The author to use for pushing"
+    required: false
+    default: ${{github.actor}} <${{github.actor }}@users.noreply.github.com>
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ secrets.GITHUB_TOKEN }}
