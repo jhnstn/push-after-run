@@ -15,7 +15,7 @@ ls -lat
 # Switch to ref if provided
 
   git fetch --quiet "${REMOTE}" "${INPUT_HEAD}"
-  git switch "${INPUT_REF}" || git switch -c "${INPUT_HEAD}"
+  git switch "${INPUT_HEAD}" || git switch -c "${INPUT_HEAD}"
 
 echo "pre readme"
 cat README.md
@@ -43,7 +43,7 @@ git status
 
 if [ -z "$(git status --porcelain)" ]; then
   _debug "No changes detected, skipping commit"
-  exit "${INPUT_NO_CHANGES_EXIT_CODE:-1}"
+  exit "${INPUT_NO_CHANGES_EXIT_CODE:-0}"
 fi
 
 git add .
