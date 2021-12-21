@@ -13,18 +13,18 @@ _debug() {
 }
 ls -lat
 # Switch to ref if provided
-if [ -n "${INPUT_REF:-}" ]; then
-  git fetch --quiet "${REMOTE}" "${INPUT_REF}"
-  git switch "${INPUT_REF}" || git switch -c "${INPUT_REF}"
-  HEAD="${INPUT_REF}"
-fi
+
+  git fetch --quiet "${REMOTE}" "${INPUT_HEAD}"
+  git switch "${INPUT_REF}" || git switch -c "${INPUT_HEAD}"
+
 echo "pre readme"
 cat README.md
 # Run the commands if provided
 if [[ -n "${INPUT_RUN:-}" ]]; then
   while IFS= read -r line; do
-    cmd=($line)
-    "${cmd[@]}"
+    eval "${line}"
+    #cmd=($line)
+    #"${cmd[@]}"
   done <<< "$INPUT_RUN"
 fi
 echo "post readme"
@@ -53,4 +53,4 @@ commit \
 -m "${INPUT_MESSAGE_DETAIL}" \
 --author "${INPUT_AUTHOR}" \
 
-git push "${REMOTE}" "${HEAD}"
+git push "${REMOTE}" "${INPUT_HEAD}"
