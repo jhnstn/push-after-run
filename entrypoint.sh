@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh -l
 set -euo pipefail
 
 REMOTE=${INPUT_REMOTE:-"origin"}
