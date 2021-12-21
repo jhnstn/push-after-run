@@ -11,14 +11,15 @@ _debug() {
     echo "::debug::$@"
   fi
 }
-
+ls -lat
 # Switch to ref if provided
 if [ -n "${INPUT_REF:-}" ]; then
   git fetch --quiet "${REMOTE}" "${INPUT_REF}"
   git switch "${INPUT_REF}" || git switch -c "${INPUT_REF}"
   HEAD="${INPUT_REF}"
 fi
-
+echo "pre readme"
+cat README.md
 # Run the commands if provided
 if [[ -n "${INPUT_RUN:-}" ]]; then
   while IFS= read -r line; do
@@ -26,13 +27,14 @@ if [[ -n "${INPUT_RUN:-}" ]]; then
     "${cmd[@]}"
   done <<< "$INPUT_RUN"
 fi
-
+echo "post readme"
+cat README.md
+ls -lat
 # Set up git user name if provided
 if [[ -n "${INPUT_USER_NAME:-}" ]]; then
   git config user.name "${INPUT_USER_NAME}"
 fi
 
-ls
 # Set up git user email if provided
 if [[ -n "${INPUT_USER_EMAIL:-}" ]]; then
   git config user.email "${INPUT_USER_EMAIL}"
