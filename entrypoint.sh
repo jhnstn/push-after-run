@@ -6,6 +6,9 @@ REMOTE=${INPUT_REMOTE:-"origin"}
 HEAD="HEAD"
 GITHUB_TOKEN=${INPUT_TOKEN:-"$GITHUB_TOKEN"}
 
+echo "woohooo"
+exit 0
+
 # Switch to ref if provided
 if [ -n "${INPUT_REF:-}" ]; then
   git fetch --quiet "${REMOTE}" "${INPUT_REF}"
