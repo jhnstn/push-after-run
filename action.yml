@@ -32,7 +32,11 @@ inputs:
     description: "The author to use for pushing"
     required: false
     default: ${{github.actor}} <${{github.actor }}@users.noreply.github.com>
-
+outputs:
+  sha:
+    description: "The SHA of the pushed commit. Empty if nothing was pushed."
+  changes_pushed:
+    description: "Boolean indicating if changes were pushed."
 runs:
   using: "docker"
   image: "Dockerfile"

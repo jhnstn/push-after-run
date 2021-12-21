@@ -28,6 +28,7 @@ git status
 
 if [ -z "$(git status --porcelain)" ]; then
   exit "${INPUT_NO_CHANGES_EXIT_CODE:-0}"
+  echo "::set-output name=changes_pushed::false"
 fi
 
 git add .
@@ -38,3 +39,6 @@ git -c user.name="${INPUT_USER_NAME}" -c user.email="${INPUT_USER_EMAIL}" \
   --author "${INPUT_AUTHOR}" \
 
 git push "${REMOTE}" "${INPUT_HEAD}"
+sha=$(git rev-parse --short HEAD)
+echo "::set-output name=sha::${sha}"
+echo "::set-output name=changes_pushed::true"
