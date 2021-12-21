@@ -30,15 +30,14 @@ fi
 git status
 
 if [ -z "$(git status --porcelain)" ]; then
-  _debug "No changes detected, skipping commit"
   exit "${INPUT_NO_CHANGES_EXIT_CODE:-0}"
 fi
 
 git add .
 git -c user.name="${INPUT_USER_NAME}" -c user.email="${INPUT_USER_EMAIL}" \
-commit \
--m "${INPUT_MESSAGE}" \
--m "${INPUT_MESSAGE_DETAIL}" \
---author "${INPUT_AUTHOR}" \
+  commit \
+  -m "${INPUT_MESSAGE}" \
+  -m "${INPUT_MESSAGE_DETAIL}" \
+  --author "${INPUT_AUTHOR}" \
 
 git push "${REMOTE}" "${INPUT_HEAD}"
