@@ -5,16 +5,13 @@ REMOTE=${INPUT_REMOTE:-"origin"}
 HEAD="HEAD"
 GITHUB_TOKEN=${INPUT_TOKEN}
 
-
 git fetch --quiet "${REMOTE}" "${INPUT_HEAD}"
 git switch "${INPUT_HEAD}" || git switch -c "${INPUT_HEAD}"
 
 # Run the commands if provided
 if [[ -n "${INPUT_RUN:-}" ]]; then
   while IFS= read -r line; do
-    #eval "${line}"
-    cmd=($line)
-    "${cmd[@]}"
+    eval "${line}"
   done <<< "$INPUT_RUN"
 fi
 
