@@ -4,7 +4,7 @@ inputs:
   message:
     description: "Commit message"
     required: true
-  secondary_message:
+  message_detail:
     description: "Secondary Commit message"
     required: false
     default: ""
