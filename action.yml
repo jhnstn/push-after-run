@@ -1,10 +1,10 @@
 name: "Push After Run"
 description: "Push changes after a step run."
 inputs:
-  message:
+  commit_message:
     description: "Commit message"
     required: true
-  message_detail:
+  commit_detail:
     description: "Secondary Commit message"
     required: false
     default: ""

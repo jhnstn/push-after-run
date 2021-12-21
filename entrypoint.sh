@@ -34,8 +34,8 @@ fi
 git add .
 git -c user.name="${INPUT_USER_NAME}" -c user.email="${INPUT_USER_EMAIL}" \
   commit \
-  -m "${INPUT_MESSAGE}" \
-  -m "${INPUT_MESSAGE_DETAIL}" \
+  -m "${INPUT_COMMIT_MESSAGE}" \
+  -m "${INPUT_COMMIT_DETAIL}" \
   --author "${INPUT_AUTHOR}" \
 
 git push "${REMOTE}" "${INPUT_HEAD}"
