@@ -4,32 +4,20 @@ set -euo pipefail
 REMOTE=${INPUT_REMOTE:-"origin"}
 HEAD="HEAD"
 GITHUB_TOKEN=${INPUT_TOKEN}
-DEBUG="true"
 
-_debug() {
-  if [ "${DEBUG}" = "true" ]; then
-    echo "::debug::$@"
-  fi
-}
-ls -lat
-# Switch to ref if provided
 
-  git fetch --quiet "${REMOTE}" "${INPUT_HEAD}"
-  git switch "${INPUT_HEAD}" || git switch -c "${INPUT_HEAD}"
+git fetch --quiet "${REMOTE}" "${INPUT_HEAD}"
+git switch "${INPUT_HEAD}" || git switch -c "${INPUT_HEAD}"
 
-echo "pre readme"
-cat README.md
 # Run the commands if provided
 if [[ -n "${INPUT_RUN:-}" ]]; then
   while IFS= read -r line; do
-    eval "${line}"
-    #cmd=($line)
-    #"${cmd[@]}"
+    #eval "${line}"
+    cmd=($line)
+    "${cmd[@]}"
   done <<< "$INPUT_RUN"
 fi
-echo "post readme"
-cat README.md
-ls -lat
+
 # Set up git user name if provided
 if [[ -n "${INPUT_USER_NAME:-}" ]]; then
   git config user.name "${INPUT_USER_NAME}"
